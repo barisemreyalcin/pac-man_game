@@ -3,6 +3,7 @@ const gridEl = document.querySelector(".grid");
 let scoreEl = document.getElementById("score");
 
 let squares = [];
+let score = 0;
 
 // 0: pac dots
 // 1: wall
@@ -113,6 +114,17 @@ function control(e) {
             break;
     }
 
+    pacDotEaten();
+
     squares[currentIndexOfPacman].classList.add("pacman");
 }
 document.addEventListener("keyup", control);
+
+function pacDotEaten() {
+    if(squares[currentIndexOfPacman].classList.contains("pac-dot")) {
+        squares[currentIndexOfPacman].classList.remove("pac-dot");
+        score++;
+        console.log(score);
+        scoreEl.textContent = score;
+    }
+}
