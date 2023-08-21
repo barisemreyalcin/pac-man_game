@@ -51,6 +51,8 @@ function createBoard() {
             squares[i].classList.add("pac-dot");
         } else if(layout[i] === 1) {
             squares[i].classList.add("wall");
+        } else if(layout[i] === 2) {
+            squares[i].classList.add("ghost-laider");
         } else if(layout[i] === 3) {
             squares[i].classList.add("power-pellet");
         }
@@ -69,22 +71,37 @@ function control(e) {
 
     switch(e.keyCode) {
         case 37:
-            if(!squares[currentIndexOfPacman - 1].classList.contains("wall") && currentIndexOfPacman % squareWidth !== 0) {
+            if(
+                !squares[currentIndexOfPacman - 1].classList.contains("ghost-lair") && 
+                !squares[currentIndexOfPacman - 1].classList.contains("wall") && 
+                currentIndexOfPacman % squareWidth !== 0
+            ) {
                 currentIndexOfPacman -= 1;
             };
             break;
         case 38:
-            if(!squares[currentIndexOfPacman - squareWidth].classList.contains("wall") && currentIndexOfPacman > squareWidth - 1) {
+            if(
+                !squares[currentIndexOfPacman - squareWidth].classList.contains("ghost-lair") && 
+                !squares[currentIndexOfPacman - squareWidth].classList.contains("wall") && 
+                currentIndexOfPacman > squareWidth - 1
+                ) {
                 currentIndexOfPacman -= squareWidth;
             }
             break;
         case 39:
-            if(!squares[currentIndexOfPacman + 1].classList.contains("wall") && currentIndexOfPacman % squareWidth < squareWidth - 1) {
+            if(
+                !squares[currentIndexOfPacman + 1].classList.contains("ghost-lair") && 
+                !squares[currentIndexOfPacman + 1].classList.contains("wall") && 
+                currentIndexOfPacman % squareWidth < squareWidth - 1) {
                 currentIndexOfPacman +=1;
             }
             break;
         case 40:
-            if(!squares[currentIndexOfPacman + squareWidth].classList.contains("wall") && currentIndexOfPacman + squareWidth < squareWidth * squareWidth) {
+            if(
+                !squares[currentIndexOfPacman + squareWidth].classList.contains("ghost-lair") && 
+                !squares[currentIndexOfPacman + squareWidth].classList.contains("wall") && 
+                currentIndexOfPacman + squareWidth < squareWidth * squareWidth
+                ) {
                 currentIndexOfPacman += squareWidth;
             }
             break;
