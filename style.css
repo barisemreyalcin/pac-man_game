@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+}
+
+.grid{
+    display: flex;
+    flex-wrap: wrap;
+    width: 420px;
+    height: 420px;
+    border: solid #000;
+}
+
+.grid div {
+    width: 15px;
+    height: 15px;
+    /* background-color: rgb(26, 46, 158); */
+}
+
+.pac-dot {
+    background-color: rgb(24, 193, 69);
+    border: 5px solid #fff;
+    box-sizing: border-box;
+}
+
+.wall {
+    background-color: rgb(47, 84, 168);
+}
+
+.power-pellet {
+    background-color: rgb(24, 193, 69);
+    border-radius: 50%;
+}
+
+.packman {
+    background-color: rgb(208, 202, 25);
+    border-radius: 50%;
+}
