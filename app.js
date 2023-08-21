@@ -77,6 +77,9 @@ function control(e) {
                 currentIndexOfPacman % squareWidth !== 0
             ) {
                 currentIndexOfPacman -= 1;
+                if(currentIndexOfPacman === 364) {
+                    currentIndexOfPacman= 391;
+                }
             };
             break;
         case 38:
@@ -94,6 +97,9 @@ function control(e) {
                 !squares[currentIndexOfPacman + 1].classList.contains("wall") && 
                 currentIndexOfPacman % squareWidth < squareWidth - 1) {
                 currentIndexOfPacman +=1;
+                if(currentIndexOfPacman === 391) {
+                    currentIndexOfPacman= 364;
+                }
             }
             break;
         case 40:
