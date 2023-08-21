@@ -17,21 +17,22 @@ body {
 }
 
 .pac-dot {
-    background-color: rgb(24, 193, 69);
+    background-color: rgb(0, 192, 51);
     border: 5px solid #fff;
     box-sizing: border-box;
 }
 
 .wall {
-    background-color: rgb(47, 84, 168);
+    background-color: rgb(28, 57, 125);
 }
 
 .power-pellet {
-    background-color: rgb(24, 193, 69);
+    background-color: rgb(0, 192, 51);
     border-radius: 50%;
 }
 
-.packman {
-    background-color: rgb(208, 202, 25);
+.pacman {
+    background-color: rgb(255, 204, 2);
     border-radius: 50%;
+    border: none;
 }

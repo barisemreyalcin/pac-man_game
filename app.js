@@ -57,4 +57,39 @@ function createBoard() {
     }
 }
 createBoard();
-console.log(squares);
+
+// starting position of pacman
+let currentIndexOfPacman = 490;
+squares[currentIndexOfPacman].classList.add("pacman");
+
+// key codes
+// 37 left - 38 up - 39 right - 40 
+function control(e) {
+    squares[currentIndexOfPacman].classList.remove("pacman");
+
+    switch(e.keyCode) {
+        case 37:
+            if(currentIndexOfPacman % squareWidth !== 0) {
+                currentIndexOfPacman -= 1;
+            };
+            break;
+        case 38:
+            if(currentIndexOfPacman > squareWidth - 1) {
+                currentIndexOfPacman -= squareWidth;
+            }
+            break;
+        case 39:
+            if(currentIndexOfPacman % squareWidth < squareWidth - 1) {
+                currentIndexOfPacman +=1;
+            }
+            break;
+        case 40:
+            if(currentIndexOfPacman + squareWidth < squareWidth * squareWidth) {
+                currentIndexOfPacman += squareWidth;
+            }
+            break;
+    }
+
+    squares[currentIndexOfPacman].classList.add("pacman");
+}
+document.addEventListener("keyup", control);
