@@ -116,6 +116,8 @@ function control(e) {
 
     pacDotEaten();
     powerPelletEaten();
+    youWin();
+    youLose();
 
     squares[currentIndexOfPacman].classList.add("pacman");
 }
@@ -200,6 +202,27 @@ function moveGhosts(ghost) {
         squares[ghost.currentIndex].classList.add(ghost.className, "ghost");
     }
 
+    youLose();
+
     }, ghost.speed);
 
+}
+
+function youLose() {
+    if(
+        squares[currentIndexOfPacman].classList.contains("ghost") &&
+        !squares[currentIndexOfPacman].classList.contains("scared-ghost")
+    ) {
+        ghosts.forEach(ghost => clearInterval(ghost.timerId));
+        document.removeEventListener("keyup", control);
+        scoreEl.innerHTML = ` ${score} | <strong class="lose">YOU LOST!😥</strong>`
+    }
+}
+
+function youWin() {
+    if(score === 274) {
+        ghosts.forEach(ghost => clearInterval(ghost.timerId));
+        document.removeEventListener("keyup", control);
+        scoreEl.innerHTML = ` ${score} | <strong class="lose">YOU WON!🥳</strong>`
+    }
 }
