@@ -1,6 +1,7 @@
 const squareWidth = 28;
 const gridEl = document.querySelector(".grid");
 let scoreEl = document.getElementById("score");
+let messageEl = document.getElementById("message");
 
 let squares = [];
 let score = 0;
@@ -24,9 +25,9 @@ let layout = [
     1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,
     1,1,1,1,1,1,0,1,1,4,4,4,4,4,4,4,4,4,4,1,1,0,1,1,1,1,1,1,
     1,1,1,1,1,1,0,1,1,4,1,1,1,2,2,1,1,1,4,1,1,0,1,1,1,1,1,1,
-    1,1,1,1,1,1,0,1,1,4,1,2,2,2,2,2,2,1,4,1,1,0,1,1,1,1,1,1,
-    4,4,4,4,4,4,0,0,0,4,1,2,2,2,2,2,2,1,4,0,0,0,4,4,4,4,4,4,
-    1,1,1,1,1,1,0,1,1,4,1,2,2,2,2,2,2,1,4,1,1,0,1,1,1,1,1,1,
+    1,1,1,1,1,1,0,1,1,4,1,1,1,2,2,1,1,1,4,1,1,0,1,1,1,1,1,1,
+    4,4,4,4,4,4,0,0,0,4,1,1,2,2,2,2,1,1,4,0,0,0,4,4,4,4,4,4,
+    1,1,1,1,1,1,0,1,1,4,1,1,2,2,2,2,1,1,4,1,1,0,1,1,1,1,1,1,
     1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,1,1,1,1,1,1,
     1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,1,1,1,1,1,1,
     1,0,0,0,0,0,0,0,0,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,1,
@@ -157,10 +158,10 @@ class Ghost {
 }
 
 const ghosts = [
-    new Ghost("blinky", 348, 250),
-    new Ghost("pinky", 376, 400),
-    new Ghost("inky", 351, 300),
-    new Ghost("clyde", 379, 500)
+    new Ghost("blinky", 376, 250),
+    new Ghost("pinky", 404, 400),
+    new Ghost("inky", 379, 300),
+    new Ghost("clyde", 407, 150)
 ]
 
 ghosts.forEach(ghost => {
@@ -176,33 +177,33 @@ function moveGhosts(ghost) {
 
     ghost.timerId = setInterval(function() {
         if(
-        !squares[ghost.currentIndex + direction].classList.contains("wall") &&
-        !squares[ghost.currentIndex + direction].classList.contains("ghost")
-    ) {
-        squares[ghost.currentIndex].classList.remove(ghost.className);
-        squares[ghost.currentIndex].classList.remove("ghost", "scared-ghost");
-        ghost.currentIndex += direction;
-        squares[ghost.currentIndex].classList.add(ghost.className);
-        squares[ghost.currentIndex].classList.add("ghost");
+            !squares[ghost.currentIndex + direction].classList.contains("wall") &&
+            !squares[ghost.currentIndex + direction].classList.contains("ghost")
+        ) {
+            squares[ghost.currentIndex].classList.remove(ghost.className);
+            squares[ghost.currentIndex].classList.remove("ghost", "scared-ghost");
+            ghost.currentIndex += direction;
+            squares[ghost.currentIndex].classList.add(ghost.className);
+            squares[ghost.currentIndex].classList.add("ghost");
 
-    } else {
-        direction = directions[Math.floor(Math.random() * directions.length)]
+        } else {
+            direction = directions[Math.floor(Math.random() * directions.length)]
         
-    }
+        }
 
-    if(ghost.isScared) {
-        squares[ghost.currentIndex].classList.add("scared-ghost");
-    }
+        if(ghost.isScared) {
+            squares[ghost.currentIndex].classList.add("scared-ghost");
+        }
     
-    if(ghost.isScared && squares[currentIndexOfPacman].classList.contains(ghost.className)) {
-        squares[ghost.currentIndex].classList.remove(ghost.className, "ghost", "scared-ghost");
-        ghost.currentIndex = ghost.startIndex;
-        score += 100;
-        scoreEl.textContent = score;
-        squares[ghost.currentIndex].classList.add(ghost.className, "ghost");
-    }
+        if(ghost.isScared && squares[currentIndexOfPacman].classList.contains(ghost.className)) {
+            squares[ghost.currentIndex].classList.remove(ghost.className, "ghost", "scared-ghost");
+            ghost.currentIndex = ghost.startIndex;
+            score += 100;
+            scoreEl.textContent = score;
+            squares[ghost.currentIndex].classList.add(ghost.className, "ghost");
+        }
 
-    youLose();
+        youLose();
 
     }, ghost.speed);
 
@@ -215,14 +216,16 @@ function youLose() {
     ) {
         ghosts.forEach(ghost => clearInterval(ghost.timerId));
         document.removeEventListener("keyup", control);
-        scoreEl.innerHTML = ` ${score} | <strong class="lose">YOU LOST!😥</strong>`
+        scoreEl.textContent = score;
+        messageEl.textContent = `YOU LOST!😥`;
     }
 }
 
 function youWin() {
-    if(score === 274) {
+    if(score >= 274) {
         ghosts.forEach(ghost => clearInterval(ghost.timerId));
         document.removeEventListener("keyup", control);
-        scoreEl.innerHTML = ` ${score} | <strong class="lose">YOU WON!🥳</strong>`
+        scoreEl.textContent = score;
+        messageEl.textContent = `YOU WON!🥳`;
     }
 }
